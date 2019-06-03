@@ -10,6 +10,8 @@ import org.powermock.core.classloader.annotations.PowerMockIgnore;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
+import javax.xml.crypto.Data;
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
@@ -65,6 +67,25 @@ public class TestTemplateProcessor implements DataSourceType{
         //------------------------------------------------
         //以上流程请在这里实现：
         //
+        dsc=EasyMock.createMock(DataSourceConfig.class);
+        ConstDataSource ds=EasyMock.createMock(ConstDataSource.class);
+        EasyMock.expect(dsc.getConstDataSource()).andReturn(ds);
+
+        DataHolder dha=EasyMock.createMock(DataHolder.class);
+        EasyMock.expect(dha.getValue()).andReturn("Female");
+        EasyMock.replay(dha);
+
+
+        DataHolder dhb=EasyMock.createMock(DataHolder.class);
+        EasyMock.expect(dhb.getValue()).andReturn("5");
+        EasyMock.replay(dhb);
+
+
+        DataHolder dhc=EasyMock.createMock(DataHolder.class);
+        EasyMock.expect(dhc.getExpr()).andReturn("${num}+${readme}");
+        EasyMock.expect(dhc.fillValue()).andReturn(null);
+        EasyMock.expect(dhc.getValue()).andReturn("5.0");
+        EasyMock.replay(dhc);
         //
         // 这里写代码
         //
